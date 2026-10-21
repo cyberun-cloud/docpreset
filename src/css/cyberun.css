@@ -1,0 +1,35 @@
+/* Cyberun documentation look. Projects add their own CSS after this file. */
+:root {
+  --ifm-color-primary: #1f6feb;
+  --ifm-color-primary-dark: #1863d4;
+  --ifm-color-primary-darker: #175ec8;
+  --ifm-color-primary-darkest: #134da5;
+  --ifm-color-primary-light: #3a81ee;
+  --ifm-color-primary-lighter: #478aef;
+  --ifm-color-primary-lightest: #6fa4f2;
+  --ifm-font-family-base: system-ui, -apple-system, "Segoe UI", "PingFang TC",
+    "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  --ifm-font-family-monospace: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --ifm-code-font-size: 92%;
+  --ifm-navbar-height: 3.5rem;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] {
+  --ifm-color-primary: #58a6ff;
+  --ifm-color-primary-dark: #3894ff;
+  --ifm-color-primary-darker: #288bff;
+  --ifm-color-primary-darkest: #0070f0;
+  --ifm-color-primary-light: #78b8ff;
+  --ifm-color-primary-lighter: #88c1ff;
+  --ifm-color-primary-lightest: #b8daff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Reference tables are dense: smaller type, no forced full width. */
+.markdown table {
+  font-size: 0.92rem;
+}
+.markdown table code {
+  white-space: nowrap;
+}
