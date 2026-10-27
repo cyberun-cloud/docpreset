@@ -44,3 +44,10 @@ test('an explicit site i18n wins', () => {
   assert.deepEqual(config.i18n, {defaultLocale: 'ja', locales: ['ja']});
   assert.equal(config.themeConfig.navbar.items.some((i) => i.type === 'localeDropdown'), true);
 });
+
+test('the shared theme components come with every site', () => {
+  const config = withCyberun(site, {});
+  assert.equal(config.themes[0], require.resolve('../src/theme-plugin.js'));
+  const plugin = require('../src/theme-plugin.js')();
+  assert.equal(require('node:fs').existsSync(require('node:path').join(plugin.getThemePath(), 'Cyberun', 'index.js')), true);
+});
