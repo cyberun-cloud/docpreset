@@ -1,35 +1,359 @@
-/* Cyberun documentation look. Projects add their own CSS after this file. */
+/*
+ * The Cyberun documentation look, shared by every product's docs: type,
+ * palette, navbar, sidebar, reading column, tables, admonitions and the
+ * front-page hero and cards (@theme/Cyberun), so the products' manuals read
+ * as one family. A site sets its own accent (--ifm-color-primary*, --cy-blue)
+ * in a customCss file after this one.
+ */
+@import '@fontsource-variable/geist/index.css';
+@import '@fontsource-variable/jetbrains-mono/index.css';
+
 :root {
-  --ifm-color-primary: #1f6feb;
-  --ifm-color-primary-dark: #1863d4;
-  --ifm-color-primary-darker: #175ec8;
-  --ifm-color-primary-darkest: #134da5;
-  --ifm-color-primary-light: #3a81ee;
-  --ifm-color-primary-lighter: #478aef;
-  --ifm-color-primary-lightest: #6fa4f2;
-  --ifm-font-family-base: system-ui, -apple-system, "Segoe UI", "PingFang TC",
-    "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-  --ifm-font-family-monospace: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --ifm-code-font-size: 92%;
-  --ifm-navbar-height: 3.5rem;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.08);
+  --cy-paper: #ffffff;
+  --cy-rail: #f6f7f9;
+  --cy-line: #e7e7ea;
+  --cy-ink: #18181b;
+  --cy-ink-soft: #52525b;
+  --cy-mute: #6b6b74;
+  --cy-blue: #1f5bd6;
+  --cy-blue-dim: rgba(31, 91, 214, 0.07);
+  --cy-green: #6bdfa0;
+  --cy-shadow: 0 1px 2px rgba(24, 24, 27, 0.04), 0 8px 24px -12px rgba(24, 24, 27, 0.12);
+
+  --ifm-color-primary: #1f5bd6;
+  --ifm-color-primary-dark: #1c52c1;
+  --ifm-color-primary-darker: #1a4db6;
+  --ifm-color-primary-darkest: #153f96;
+  --ifm-color-primary-light: #2f69e0;
+  --ifm-color-primary-lighter: #3b72e2;
+  --ifm-color-primary-lightest: #5f8be7;
+
+  --ifm-background-color: var(--cy-paper);
+  --ifm-font-color-base: var(--cy-ink);
+  --ifm-color-emphasis-600: var(--cy-ink-soft);
+  --ifm-toc-border-color: var(--cy-line);
+  --ifm-hr-border-color: var(--cy-line);
+  --ifm-table-border-color: var(--cy-line);
+  --ifm-font-family-base: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, Consolas,
+    monospace;
+  --ifm-heading-font-weight: 650;
+  --ifm-line-height-base: 1.7;
+  --ifm-global-radius: 10px;
+  --ifm-code-border-radius: 6px;
+  --ifm-navbar-shadow: none;
+  --ifm-menu-color: var(--cy-ink-soft);
+  --ifm-menu-color-background-active: var(--cy-blue-dim);
+  --ifm-menu-color-background-hover: rgba(24, 24, 27, 0.04);
+  --ifm-footer-background-color: #111113;
+  --docsearch-primary-color: var(--cy-blue);
 }
 
-[data-theme="dark"] {
-  --ifm-color-primary: #58a6ff;
-  --ifm-color-primary-dark: #3894ff;
-  --ifm-color-primary-darker: #288bff;
-  --ifm-color-primary-darkest: #0070f0;
-  --ifm-color-primary-light: #78b8ff;
-  --ifm-color-primary-lighter: #88c1ff;
-  --ifm-color-primary-lightest: #b8daff;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+html[lang='zh-Hans'] {
+  --ifm-font-family-base: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
 }
 
-/* Reference tables are dense: smaller type, no forced full width. */
+[data-theme='dark'] {
+  --cy-paper: #141416;
+  --cy-rail: #19191c;
+  --cy-line: #2a2a2e;
+  --cy-ink: #ececee;
+  --cy-ink-soft: #a9a9b1;
+  --cy-mute: #8b8b94;
+  --cy-blue: #7aa2f7;
+  --cy-blue-dim: rgba(122, 162, 247, 0.12);
+  --cy-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 32px -16px rgba(0, 0, 0, 0.7);
+
+  --ifm-color-primary: #7aa2f7;
+  --ifm-color-primary-dark: #5c8cf5;
+  --ifm-color-primary-darker: #4d81f4;
+  --ifm-color-primary-darkest: #2061f0;
+  --ifm-color-primary-light: #98b8f9;
+  --ifm-color-primary-lighter: #a7c3fa;
+  --ifm-color-primary-lightest: #d4e2fd;
+  --ifm-background-color: var(--cy-paper);
+  --ifm-background-surface-color: var(--cy-rail);
+  --ifm-navbar-background-color: rgba(20, 20, 22, 0.82);
+  --ifm-menu-color-background-hover: rgba(255, 255, 255, 0.05);
+  --ifm-footer-background-color: #0e0e10;
+}
+
+/* ---- frame ------------------------------------------------------------ */
+
+.navbar {
+  border-bottom: 1px solid var(--cy-line);
+  backdrop-filter: saturate(180%) blur(12px);
+  background-color: rgba(255, 255, 255, 0.82);
+}
+[data-theme='dark'] .navbar {
+  background-color: rgba(20, 20, 22, 0.82);
+}
+.navbar__logo {
+  height: 1.75rem;
+  margin-right: 0.6rem;
+}
+.navbar__title {
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--cy-line) !important;
+  background: var(--cy-rail);
+}
+.menu {
+  font-size: 0.9rem;
+  padding: 1rem 0.75rem !important;
+}
+.menu__list-item-collapsible .menu__link--sublist,
+.theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible > .menu__link {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cy-mute);
+  margin-top: 0.9rem;
+}
+.menu__link {
+  border-radius: 8px;
+  padding: 0.35rem 0.7rem;
+}
+.menu__link--active:not(.menu__link--sublist) {
+  font-weight: 600;
+  color: var(--cy-blue);
+}
+
+/* ---- reading ---------------------------------------------------------- */
+
+.markdown {
+  --ifm-h1-font-size: 2.35rem;
+  --ifm-h2-font-size: 1.45rem;
+  --ifm-h3-font-size: 1.12rem;
+  font-size: 1rem;
+}
+.markdown h1 {
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.markdown h2 {
+  letter-spacing: -0.015em;
+  margin-top: 2.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--cy-line);
+}
+.markdown header + p,
+.markdown > p:first-of-type {
+  font-size: 1.12rem;
+  color: var(--cy-ink-soft);
+}
+.markdown strong {
+  font-weight: 620;
+}
+.markdown code {
+  border: 1px solid var(--cy-line);
+  background: var(--cy-rail);
+}
 .markdown table {
-  font-size: 0.92rem;
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--cy-line);
+  border-radius: 10px;
+  overflow: hidden;
 }
+.markdown table thead tr {
+  background: var(--cy-rail);
+}
+.markdown table th,
+.markdown table td {
+  border: 0;
+  border-bottom: 1px solid var(--cy-line);
+}
+.markdown table tr:last-child td {
+  border-bottom: 0;
+}
+.markdown table tbody tr:nth-child(2n) {
+  background: transparent;
+}
+.markdown img {
+  border: 1px solid var(--cy-line);
+  border-radius: 12px;
+  box-shadow: var(--cy-shadow);
+}
+
+.theme-admonition {
+  --ifm-alert-background-color: var(--cy-rail);
+  --ifm-alert-foreground-color: var(--cy-ink);
+  --ifm-alert-border-color: var(--cy-line);
+  border: 1px solid var(--cy-line);
+  border-left: 3px solid var(--cy-admonition, var(--cy-line));
+  box-shadow: none;
+  border-radius: 10px;
+}
+.theme-admonition-note { --cy-admonition: var(--cy-mute); }
+.theme-admonition-tip { --cy-admonition: #2a9d5c; }
+.theme-admonition-info { --cy-admonition: var(--cy-blue); }
+.theme-admonition-warning { --cy-admonition: #c98a1b; }
+.theme-admonition-danger { --cy-admonition: #d0493e; }
+.theme-admonition [class*='admonitionHeading'] {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--cy-admonition, var(--cy-ink));
+}
+.theme-admonition a {
+  color: var(--ifm-color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.theme-admonition [class*='admonitionIcon'] svg {
+  fill: var(--cy-admonition, var(--cy-ink));
+}
+
+.pagination-nav__link {
+  border-radius: 12px;
+  border-color: var(--cy-line);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.pagination-nav__link:hover {
+  border-color: var(--cy-blue);
+  box-shadow: var(--cy-shadow);
+}
+
+.table-of-contents__link--active {
+  font-weight: 600;
+}
+
+/* ---- the front page --------------------------------------------------- */
+
+.cy-hero {
+  position: relative;
+  margin: 0.25rem 0 2.25rem;
+  padding: 2.5rem 2.25rem 2.25rem;
+  border-radius: 18px;
+  border: 1px solid var(--cy-line);
+  background:
+    radial-gradient(120% 140% at 100% 0%, color-mix(in srgb, var(--cy-blue) 14%, transparent), transparent 55%),
+    radial-gradient(90% 120% at 0% 100%, rgba(107, 223, 160, 0.16), transparent 60%),
+    var(--cy-rail);
+  overflow: hidden;
+}
+[data-theme='dark'] .cy-hero {
+  background:
+    radial-gradient(120% 140% at 100% 0%, color-mix(in srgb, var(--cy-blue) 20%, transparent), transparent 55%),
+    radial-gradient(90% 120% at 0% 100%, rgba(107, 223, 160, 0.12), transparent 60%),
+    var(--cy-rail);
+}
+.cy-hero__eyebrow {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cy-blue);
+  margin-bottom: 0.6rem;
+}
+.cy-hero__title {
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  font-weight: 680;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin: 0 0 0.9rem;
+  border: 0;
+  padding: 0;
+}
+.cy-hero__lead {
+  font-size: 1.1rem;
+  color: var(--cy-ink-soft);
+  max-width: 40rem;
+  margin-bottom: 1.5rem;
+}
+.cy-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.cy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2.5rem;
+  padding: 0 1.1rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  border: 1px solid var(--cy-line);
+  color: var(--cy-ink) !important;
+  background: var(--cy-paper);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.cy-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--cy-shadow);
+}
+.cy-button--primary {
+  background: var(--cy-ink);
+  border-color: var(--cy-ink);
+  color: var(--cy-paper) !important;
+}
+
+.cy-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
+  gap: 0.9rem;
+  margin: 1.2rem 0 2rem;
+}
+.cy-card {
+  display: block;
+  padding: 1.1rem 1.15rem 1.15rem;
+  border: 1px solid var(--cy-line);
+  border-radius: 14px;
+  background: var(--cy-paper);
+  color: inherit !important;
+  text-decoration: none !important;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.cy-card:hover {
+  border-color: var(--cy-blue);
+  box-shadow: var(--cy-shadow);
+  transform: translateY(-2px);
+}
+.cy-card__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 10px;
+  background: var(--cy-blue-dim);
+  color: var(--cy-blue);
+  font-size: 1.05rem;
+  margin-bottom: 0.7rem;
+}
+.cy-card__title {
+  display: block;
+  font-weight: 620;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+.cy-card__text {
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--cy-ink-soft);
+}
+
+@media (max-width: 640px) {
+  .cy-hero {
+    padding: 1.6rem 1.25rem;
+  }
+}
+
+/* Reference tables are dense: identifiers stay on one line. */
 .markdown table code {
   white-space: nowrap;
+}
+.markdown table {
+  font-size: 0.94rem;
 }

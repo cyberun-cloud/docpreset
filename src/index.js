@@ -6,7 +6,8 @@
 //   module.exports = withCyberun({title, url, baseUrl, ...}, {navbarItems, footerLinks});
 //
 // Everything visual (colors, fonts, navbar and footer layout, code theme,
-// search) comes from here so every site looks the same.
+// search, the front-page hero and cards in @theme/Cyberun) comes from here so
+// every site looks the same.
 
 const {themes} = require('prism-react-renderer');
 
@@ -61,6 +62,7 @@ function withCyberun(site, options = {}) {
       ...presets,
     ],
     themes: [
+      require.resolve('./theme-plugin'),
       [
         require.resolve('@easyops-cn/docusaurus-search-local'),
         {
